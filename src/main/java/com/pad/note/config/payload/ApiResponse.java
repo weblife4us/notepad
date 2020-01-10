@@ -1,4 +1,4 @@
-package com.pad.note;
+package com.pad.note.config.payload;
 
 public class ApiResponse {
     private Boolean isSuccess;

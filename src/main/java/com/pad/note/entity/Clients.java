@@ -1,31 +1,16 @@
 package com.pad.note.entity;
 
-import java.time.LocalDate;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 
 import org.hibernate.validator.constraints.Length;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.go2it.frame.config.converter.PersonTypeConverter;
-import com.go2it.frame.config.converter.StringToIntAttributeConverter;
+
+import com.pad.note.config.converter.*;
+
 
 @Entity
 @Table(name = "Users", uniqueConstraints = {@UniqueConstraint(columnNames = {"PID"})})
-
 public class Clients {
-    public class Customer {
         //TODO clarify whether ID is required
         //	@GeneratedValue(strategy = GenerationType.AUTO) @Column(name = "id", updatable = false, nullable = false) private int id;
         @Transient
@@ -46,9 +31,7 @@ public class Clients {
         @Column(name = "PPhone", nullable = false, length = 150)
         @Length(max = 50)
         private String phoneNumber;
-        @Column(name = "Gender", nullable = false)
-        @Convert(converter = PersonTypeConverter.class)
-        private Type type;
+        @Column(name = "Gender", nullable = false) @Convert(converter = PersonTypeConverter.class) private Type type;
 
         //to preserve the String value of enum (default ordinal)
 
@@ -65,7 +48,7 @@ public class Clients {
 
         @OneToOne(cascade = CascadeType.ALL)
         @JoinColumn(name = "SPID", referencedColumnName = "PID")
-        private Customer spouse;
+        private Clients spouse;
         @Column(name = "LoginName", length = 64)
         @Length(max = 64)
         private String loginName;
@@ -76,5 +59,125 @@ public class Clients {
         @Column(name = "WebAccess", columnDefinition = "boolean")
         @org.hibernate.annotations.Type(type = "numeric_boolean")
         private boolean hasWebAccess;
-    }
+
+        public int getId() {
+                return id;
+        }
+
+        public void setId(int id) {
+                this.id = id;
+        }
+
+        public String getPersonId() {
+                return personId;
+        }
+
+        public void setPersonId(String personId) {
+                this.personId = personId;
+        }
+
+        public String getName() {
+                return name;
+        }
+
+        public void setName(String name) {
+                this.name = name;
+        }
+
+        public String getPhoneNumber() {
+                return phoneNumber;
+        }
+
+        public void setPhoneNumber(String phoneNumber) {
+                this.phoneNumber = phoneNumber;
+        }
+
+
+        public Type getType() {
+                return type;
+        }
+
+        public void setType(Type type) {
+                this.type = type;
+        }
+
+        public boolean isHasProvidedAuthorization() {
+                return hasProvidedAuthorization;
+        }
+
+        public void setHasProvidedAuthorization(boolean hasProvidedAuthorization) {
+                this.hasProvidedAuthorization = hasProvidedAuthorization;
+        }
+
+        public boolean isActiveClient() {
+                return isActiveClient;
+        }
+
+        public void setActiveClient(boolean activeClient) {
+                isActiveClient = activeClient;
+        }
+
+        public int getYearT1Done() {
+                return yearT1Done;
+        }
+
+        public void setYearT1Done(int yearT1Done) {
+                this.yearT1Done = yearT1Done;
+        }
+
+        public Clients getSpouse() {
+                return spouse;
+        }
+
+        public void setSpouse(Clients spouse) {
+                this.spouse = spouse;
+        }
+
+        public String getLoginName() {
+                return loginName;
+        }
+
+        public void setLoginName(String loginName) {
+                this.loginName = loginName;
+        }
+
+        public String getPassword() {
+                return password;
+        }
+
+        public void setPassword(String password) {
+                this.password = password;
+        }
+
+        public boolean isHasWebAccess() {
+                return hasWebAccess;
+        }
+
+        public void setHasWebAccess(boolean hasWebAccess) {
+                this.hasWebAccess = hasWebAccess;
+        }
+
+public enum Type {
+        MALE("Male"), FEMALE("Female"), CORPORATION("Corporation");
+
+        private String title;
+
+        Type(String title) {
+                this.title = title;
+        }
+
+        public String getTitle() {
+                return title;
+        }
+
+        public static Type getByTitle(String title) {
+                for (Type type : Type.values()) {
+                        if (type.getTitle().equals(title)) {
+                                return type;
+                        }
+                }
+                return null;
+        }
+}
+
 }

@@ -1,7 +1,6 @@
 package com.pad.note.controller;
 
-import ch.qos.logback.core.net.server.Client;
-import com.pad.note.ApiResponse;
+import com.pad.note.config.payload.ApiResponse;
 import com.pad.note.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

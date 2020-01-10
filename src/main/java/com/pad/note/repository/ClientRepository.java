@@ -1,18 +1,15 @@
 package com.pad.note.repository;
-
-import com.pad.note.entity.Clients;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.data.repository.CrudRepository;
+import com.pad.note.entity.Clients;
 
 @org.springframework.stereotype.Repository
+public interface ClientRepository extends CrudRepository<Clients, Integer> {
 
-public abstract class ClientRepository implements CrudRepository<Clients,Integer> {
+    Optional<Clients> findByName(String name);
 
-    public abstract Optional<Clients> findByName(String name);
+    List<Clients> findAllByOrderByPersonId();
 
-    public abstract List<Clients> findAllByOrderByPersonId();
-
-    public abstract Optional<Clients> findByPersonId(String customerId);
+    Optional<Clients> findByPersonId(String customerId);
 }
