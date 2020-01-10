@@ -1,9 +1,3 @@
-HELP.md
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**
-!**/src/test/**
-
 ### IntelliJ IDEA ###
 .idea
 *.iws
@@ -15,3 +9,7 @@ lib/
 mvnw
 mvnw.cmd
 note.iml
+
+src/main/resources/static/
+src/main/resources/templates/
+src/webapp/WEB-INF/
